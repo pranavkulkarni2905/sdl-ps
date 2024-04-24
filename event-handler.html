@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Chat Application</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.chat-box {
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+input[type="text"] {
+    width: calc(100% - 70px);
+    padding: 10px;
+    border-radius: 5px 0 0 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+button {
+    width: 60px;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    outline: none;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+</style>
+<body>
+    <div class="container">
+        <div class="chat-box" id="chatBox"></div>
+        <input type="text" id="messageInput" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+<script>
+    // Function to send message
+function sendMessage() {
+    var messageInput = document.getElementById("messageInput");
+    var message = messageInput.value.trim();
+
+    if (message !== "") {
+        addMessageToChat("You", message);
+        messageInput.value = "";
+        // Here you can add code to send the message to a server for real-time communication
+    }
+}
+
+// Function to add message to chat box
+function addMessageToChat(sender, message) {
+    var chatBox = document.getElementById("chatBox");
+    var messageElement = document.createElement("div");
+    messageElement.innerHTML = "<strong>" + sender + ":</strong> " + message;
+    chatBox.appendChild(messageElement);
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// Simulate receiving a message (for demonstration purposes)
+function receiveMessage() {
+    var message = "Hello! How are you?";
+    setTimeout(function() {
+        addMessageToChat("Friend", message);
+    }, 1000);
+}
+
+// Simulate receiving messages periodically (for demonstration purposes)
+setInterval(receiveMessage, 5000); // Receive message every 5 seconds
+
+</script>
+</html>

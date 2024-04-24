@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <style>
+    body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  height: 100vh;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #f5f5f5;
+}
+
+.content {
+  text-align: center;
+  border: 2px solid #ccc;
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+#time {
+  font-size: 24px;
+  color: #007bff;
+  margin-bottom: 5px;
+}
+
+#greeting {
+  font-size: 28px;
+  color: #666;
+}
+  </style>
+  <body>
+    <div class="container">
+      <div class="content">
+        <h1>Welcome 👋</h1>
+        <p id="greeting">Loading...</p>
+        <p id="time">Loading...</p>
+      </div>
+    </div>
+    <script src="script.js" defer></script>
+  </body>
+  <script>
+    // Calculate average number of weeks in human lifetime
+const lifespanYears = 80;
+const weeksInYear = 52;
+const averageWeeksInLifetime = lifespanYears * weeksInYear;
+alert("Average number of weeks in human lifetime: " + averageWeeksInLifetime);
+
+// Get current hour
+const currentHour = new Date().getHours();
+
+// Determine time of the day
+let timeOfDay;
+if (currentHour >= 5 && currentHour < 12) {
+  timeOfDay = "morning";
+} else if (currentHour >= 12 && currentHour < 18) {
+  timeOfDay = "afternoon";
+} else {
+  timeOfDay = "night";
+}
+
+// Display current time of the day and greeting
+const timeElement = document.getElementById("time");
+const greetingElement = document.getElementById("greeting");
+timeElement.textContent = `Current time: ${getTime()}`;
+greetingElement.textContent = `Good ${
+  timeOfDay.charAt(0).toUpperCase() + timeOfDay.slice(1)
+}!`;
+
+// Function to get current time
+function getTime() {
+  const now = new Date().toLocaleTimeString();
+  return now;
+}
+
+// Update time every second
+setInterval(() => {
+  timeElement.textContent = `Current time: ${getTime()}`;
+}, 1000);
+  </script>
+</html>
