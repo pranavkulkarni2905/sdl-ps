@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>File Size Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+  }
+  .container {
+    text-align: center;
+  }
+  .file-input {
+    margin-bottom: 20px;
+  }
+  .file-input input[type="file"],
+  .manual-input input[type="text"] {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    width: 250px;
+    box-sizing: border-box;
+    margin-right: 10px;
+  }
+  .result {
+    font-size: 18px;
+    margin-top: 20px;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="file-input">
+      <input type="file" id="fileInput" onchange="calculateFileSize()">
+    </div>
+
+    <div class="manual-input">
+      <input type="text" id="manualInput" placeholder="Enter file size in bytes">
+      <button onclick="calculateFileSizeManually()">Submit</button>
+    </div>
+
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    function calculateFileSize() {
+      const fileInput = document.getElementById('fileInput');
+      const fileSize = fileInput.files[0].size;
+      displayFileSize(fileSize);
+    }
+
+    function calculateFileSizeManually() {
+      const manualInput = document.getElementById('manualInput').value;
+      const fileSize = parseInt(manualInput, 10);
+      displayFileSize(fileSize);
+    }
+
+    function displayFileSize(fileSize) {
+      const fileSizeKB = fileSize / 1024;
+      const fileSizeMB = fileSizeKB / 1024;
+      const fileSizeGB = fileSizeMB / 1024;
+
+      let sizeMessage = '';
+      if (fileSizeGB > 1) {
+        sizeMessage = `${fileSizeGB.toFixed(2)} GB`;
+      } else if (fileSizeMB > 1) {
+        sizeMessage = `${fileSizeMB.toFixed(2)} MB`;
+      } else if (fileSizeKB > 1) {
+        sizeMessage = `${fileSizeKB.toFixed(2)} KB`;
+      } else {
+        sizeMessage = `${fileSize} bytes`;
+      }
+
+      document.getElementById('result').innerHTML = `
+        <p>File Size: ${fileSize} bytes</p>
+        <p>File Size (KB): ${fileSizeKB.toFixed(2)} KB</p>
+        <p>File Size (MB): ${fileSizeMB.toFixed(2)} MB</p>
+        <p>File Size (GB): ${fileSizeGB.toFixed(2)} GB</p>
+      `;
+    }
+  </script>
+</body>
+</html>
